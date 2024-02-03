@@ -14,6 +14,9 @@ namespace Refactoring.Web.Services {
         }
 
         public async Task ProcessOrder() {
+            if (_order == null) return; 
+            if (_order.District == null) return;
+            if (_order.Total <= 0) return;
             if (_order.District.ToLower() == "cambridge") {
                 var advert = new Advert();
                 advert.CreatedOn = DateTime.Now;

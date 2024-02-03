@@ -4,20 +4,29 @@
     ViewBag.Title = "title";
     Layout = "_Layout";
 }
+@if (Model.District != null && Model.Total > 0 && Model.Status.ToLower() != "failed")
+{
+    <h2>Order Complete! (@Model.Id)</h2>
+    <div>
+        <h3>Summary :</h3>
+        <ul>
+            <li>District: @Model.District</li>
+            <li>Created: @Model.CreatedOn</li>
+            <li>Total: @Model.Total</li>
+        </ul>
+        <h3>Attached Flyer:</h3>
+        <ul>
+            <li>@Model.Advert.Heading</li>
+            <li>@Model.Advert.Content</li>
+            @if (!String.IsNullOrWhiteSpace(Model.Advert.ImageUrl))
+            {
+                <img src="@Model.Advert.ImageUrl" />
+            }
+        </ul>
+    </div>
+}
+else
+{
+    <h2>Order Failed. (@Model.Id)</h2>
+}
 
-<h2>Order Complete! (@Model.Id)</h2>
-<div>
-    <h3>Summary :</h3>
-    <ul>
-        <li>District: @Model.District</li>
-        <li>Created: @Model.CreatedOn</li>
-    </ul>
-    <h3>Attached Flyer:</h3>
-    <ul>
-        <li>@Model.Advert.Heading</li>
-        <li>@Model.Advert.Content</li>
-        @if (!String.IsNullOrWhiteSpace(Model.Advert.ImageUrl)) {
-            <img src="@Model.Advert.ImageUrl" />
-        }
-    </ul>
-</div>

@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Refactoring.Web.DomainModels;
@@ -10,14 +11,22 @@ namespace Refactoring.Web.Controllers {
         }
         
         [HttpPost]
-        public async Task<IActionResult> SubmitOrder(string selectedDistrict, decimal orderAmount) {
-            var order = new Order();
-            order.District = selectedDistrict;
-            order.Total = orderAmount;
-            var orderService = new OrderService(order);
-            await orderService.ProcessOrder();
-            var completedOrder = orderService.GetOrder();
-            return View(completedOrder);
+        public async Task<IActionResult> SubmitOrder(string? selectedDistrict, decimal orderAmount) {
+            try
+            {
+                var order = new Order();
+                order.District = selectedDistrict;
+                order.Total = orderAmount;
+                var orderService = new OrderService(order);
+                await orderService.ProcessOrder();
+                var completedOrder = orderService.GetOrder();
+                return View(completedOrder);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+
         }
     }
 }

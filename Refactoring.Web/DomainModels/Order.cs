@@ -7,7 +7,7 @@ namespace Refactoring.Web.DomainModels {
         public DateTime UpdatedOn { get; set; }
         public decimal Total { get; set; } 
         public string OrderType { get; set; }
-        public string Status { get; set; }
+        public string Status { get; set; } = "Failed";
         public string District { get; set; }
         public Advert Advert { get; set; }
     }
